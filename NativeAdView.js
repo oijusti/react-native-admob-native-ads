@@ -62,7 +62,7 @@ class NativeAdView extends Component {
       <UnifiedNativeAdView
         {...this.props}
         style={[this.props.style, this.state.style, {
-          height: Platform.OS === "android"? this.getHeight() : null
+          // height: Platform.OS === "android"? this.getHeight() : null
         }]}
         onAdFailedToLoad={this.handleAdFailedToLoad}
         ref={this.setRef}

@@ -85,7 +85,6 @@ class ReactNativeView extends LinearLayout {
     private int mBgBorderRadius = 0;
     private int mBgBorderWidth = 0;
 
-
     public ReactNativeView(Context context) {
         super(context);
         createNativeAd(context);
@@ -109,75 +108,59 @@ class ReactNativeView extends LinearLayout {
 
         LayoutInflater layoutInflater = LayoutInflater.from(context);
         View viewRoot = layoutInflater.inflate(template, this, true);
-        unifiedNativeAdView = (UnifiedNativeAdView) viewRoot.findViewById(R.id.native_ad_view);
-
+        unifiedNativeAdView = viewRoot.findViewById(R.id.native_ad_view);
     }
 
     private void initViews() {
         if (unifiedNativeAdView == null || unifiedNativeAd == null) return;
 
-        mediaContainer = (LinearLayout) unifiedNativeAdView.findViewById(R.id.ad_media_container);
-        advertiserText = (TextView) findViewById(R.id.tertiary);
-        advertiserWrapper = (LinearLayout) findViewById(R.id.third_line);
-        iconView = (ImageView) findViewById(R.id.icon);
-        headingWrapper = (LinearLayout) findViewById(R.id.headline);
-        background = (LinearLayout) findViewById(R.id.background);
-        headingText = (TextView) findViewById(R.id.primary);
-        tagLineText = (TextView) findViewById(R.id.secondary);
-
+        mediaContainer = unifiedNativeAdView.findViewById(R.id.ad_media_container);
+        advertiserText = findViewById(R.id.tertiary);
+        advertiserWrapper = findViewById(R.id.third_line);
+        iconView = findViewById(R.id.icon);
+        headingWrapper = findViewById(R.id.headline);
+        background = findViewById(R.id.background);
+        headingText = findViewById(R.id.primary);
+        tagLineText = findViewById(R.id.secondary);
 
         if (mediaContainer != null) {
-
-            mediaView = (MediaView) unifiedNativeAdView.findViewById(R.id.media_view);
-            imageView = (ImageView) unifiedNativeAdView.findViewById(R.id.image_view);
+            mediaView = unifiedNativeAdView.findViewById(R.id.media_view);
+            imageView = unifiedNativeAdView.findViewById(R.id.image_view);
             unifiedNativeAdView.setMediaView(mediaView);
         }
 
-
-        callToActionParentView = (LinearLayout) findViewById(R.id.cta_parent);
-        tagLineWrapper = (LinearLayout) findViewById(R.id.body);
-        callToActionView = (Button) findViewById(R.id.cta);
-
-
-        ratingBar = (RatingBar) findViewById(R.id.rating_bar);
-
+        callToActionParentView = findViewById(R.id.cta_parent);
+        tagLineWrapper = findViewById(R.id.body);
+        callToActionView = findViewById(R.id.cta);
+        ratingBar = findViewById(R.id.rating_bar);
         unifiedNativeAdView.setCallToActionView(callToActionView);
-
 
         if (headingWrapper != null) {
             unifiedNativeAdView.setHeadlineView(headingWrapper);
         }
-
         if (advertiserWrapper != null) {
             unifiedNativeAdView.setStoreView(advertiserWrapper);
             unifiedNativeAdView.setAdvertiserView(advertiserWrapper);
         }
-
         if (ratingBar != null) {
             ratingBar.setEnabled(true);
             unifiedNativeAdView.setStarRatingView(ratingBar);
         }
-
         if (iconView != null) {
             unifiedNativeAdView.setIconView(iconView);
         }
-
         if (tagLineWrapper != null) {
             unifiedNativeAdView.setBodyView(tagLineWrapper);
         }
-
-
     }
 
     @Override
     public void requestLayout() {
         super.requestLayout();
-
         post(measureAndLayout);
     }
 
     private void refreshAd() {
-
         AdLoader.Builder builder = new AdLoader.Builder(getContext(), admobAdUnitId);
         builder.forUnifiedNativeAd(new UnifiedNativeAd.OnUnifiedNativeAdLoadedListener() {
             @Override
@@ -185,15 +168,14 @@ class ReactNativeView extends LinearLayout {
                 if (nativeAd != null) {
                     unifiedNativeAd = nativeAd;
                 }
-
                 if (unifiedNativeAdView != null) {
                     populateUnifiedNativeAdView();
                 }
                 sendEvent(RNAdMobNativeViewManager.EVENT_UNIFIED_NATIVE_AD_LOADED, null);
+
             }
 
         });
-
 
         VideoOptions videoOptions = new VideoOptions.Builder()
                 .setStartMuted(true)
@@ -248,13 +230,18 @@ class ReactNativeView extends LinearLayout {
             public void onAdClicked() {
                 super.onAdClicked();
                 sendEvent(RNAdMobNativeViewManager.EVENT_AD_CLICKED, null);
-
             }
 
             @Override
             public void onAdLoaded() {
                 super.onAdLoaded();
                 sendEvent(RNAdMobNativeViewManager.EVENT_AD_LOADED, null);
+                TextView headline = unifiedNativeAdView.findViewById(R.id.primary);
+                headline.setBackgroundColor(Color.TRANSPARENT);
+                TextView tagline = unifiedNativeAdView.findViewById(R.id.secondary);
+                tagline.setBackgroundColor(Color.TRANSPARENT);
+                ImageView iconView = findViewById(R.id.icon);
+                iconView.setBackgroundColor(Color.TRANSPARENT);
             }
 
             @Override
@@ -268,11 +255,9 @@ class ReactNativeView extends LinearLayout {
                 super.onAdLeftApplication();
                 sendEvent(RNAdMobNativeViewManager.EVENT_AD_LEFT_APPLICATION, null);
             }
-        })
-                .build();
+        }).build();
 
         adLoader.loadAd(new AdRequest.Builder().build());
-
     }
 
 
@@ -306,11 +291,8 @@ class ReactNativeView extends LinearLayout {
         return (!isNullOrEmpty(advertiser)) && (!isNullOrEmpty(store));
     }
 
-
     private void populateUnifiedNativeAdView() {
-
         if (unifiedNativeAdView == null || unifiedNativeAd == null) return;
-
         try {
             initViews();
 
@@ -318,17 +300,13 @@ class ReactNativeView extends LinearLayout {
             setBackgroundStyle(mBgBackground, mBgBorderColor, mBgBorderWidth, mBgBorderRadius);
 
             if (mediaContainer != null) {
-
                 VideoController vc = unifiedNativeAd.getMediaContent().getVideoController();
-
                 vc.play();
 
                 if (vc != null) {
                     vc.setVideoLifecycleCallbacks(new VideoController.VideoLifecycleCallbacks() {
                         public void onVideoEnd() {
                             super.onVideoEnd();
-
-
                         }
                     });
 
@@ -348,7 +326,6 @@ class ReactNativeView extends LinearLayout {
                 }
             }
 
-
             String store = unifiedNativeAd.getStore();
             String advertiser = unifiedNativeAd.getAdvertiser();
             String headline = unifiedNativeAd.getHeadline();
@@ -362,29 +339,25 @@ class ReactNativeView extends LinearLayout {
             if (adHasOnlyStore(unifiedNativeAd)) {
 
                 if (advertiserWrapper != null) {
-                    advertiserWrapper.setVisibility(VISIBLE);
+                    // advertiserWrapper.setVisibility(VISIBLE);
                 }
-
                 tertiaryText = store;
             } else if (adHasOnlyAdvertiser(unifiedNativeAd)) {
 
-
                 if (advertiserWrapper != null) {
-                    advertiserWrapper.setVisibility(VISIBLE);
+                    // advertiserWrapper.setVisibility(VISIBLE);
                 }
-
                 if (tagLineText != null) {
-                    tagLineText.setLines(2);
-
+                    // tagLineText.setLines(2);
                 }
                 tertiaryText = advertiser;
 
             } else if (adHasBothStoreAndAdvertiser(unifiedNativeAd)) {
                 if (advertiserWrapper != null) {
-                    advertiserWrapper.setVisibility(VISIBLE);
+                    // advertiserWrapper.setVisibility(VISIBLE);
                 }
                 if (tagLineText != null) {
-                    tagLineText.setLines(2);
+                    // tagLineText.setLines(2);
                 }
 
                 tertiaryText = advertiser;
@@ -398,7 +371,6 @@ class ReactNativeView extends LinearLayout {
                 }
 
             }
-
 
             headingText.setText(headline);
             advertiserText.setText(tertiaryText);
@@ -427,7 +399,6 @@ class ReactNativeView extends LinearLayout {
                 iconView.setVisibility(GONE);
             }
 
-
             unifiedNativeAdView.setNativeAd(unifiedNativeAd);
 
             postDelayed(new Runnable() {
@@ -439,18 +410,14 @@ class ReactNativeView extends LinearLayout {
             }, 1200000);
 
         } catch (Exception e) {
-
             Log.d(TAG, e.getMessage());
-
         }
     }
-
 
     @Override
     protected void onAttachedToWindow() {
         super.onAttachedToWindow();
     }
-
 
     public void setBackgroundStyle(@Nullable String backgroundColor, @Nullable String borderColor, @Nullable int borderWidth, @Nullable int borderRadius) {
         if (unifiedNativeAdView == null) return;
@@ -461,7 +428,6 @@ class ReactNativeView extends LinearLayout {
             mBgBackground = backgroundColor;
             int bc = Color.parseColor(backgroundColor);
             backroundDrawable.setColor(bc);
-
         }
         if (borderRadius > 0) {
             mBgBorderRadius = borderRadius;
@@ -474,13 +440,10 @@ class ReactNativeView extends LinearLayout {
                 mBgBorderColor = borderColor;
                 brc = Color.parseColor(borderColor);
             }
-
             backroundDrawable.setStroke(borderWidth, brc);
         }
-
         findViewById(R.id.native_ad_view).setBackground(backroundDrawable);
     }
-
 
     public void setButtonStyle(@Nullable String textColor, @Nullable String backgroundColor, @Nullable String borderColor, @Nullable int borderWidth, @Nullable int borderRadius) {
         if (unifiedNativeAdView == null) return;
@@ -511,7 +474,7 @@ class ReactNativeView extends LinearLayout {
             mTextColor = textColor;
             int tc = Color.parseColor(textColor);
             button.setTextColor(tc);
-            text.setTextColor(tc);
+            // text.setTextColor(tc);
         }
 
         if (backgroundColor != null) {
@@ -539,11 +502,10 @@ class ReactNativeView extends LinearLayout {
 
         }
         button.setBackground(gradientDrawableA);
-        text.setBackground(gradientDrawableB);
+        // text.setBackground(gradientDrawableB);
     }
 
     private void sendEvent(String name, @Nullable WritableMap event) {
-
         ReactContext reactContext = (ReactContext) getContext();
         reactContext.getJSModule(RCTEventEmitter.class).receiveEvent(
                 getId(),
@@ -557,42 +519,36 @@ class ReactNativeView extends LinearLayout {
 
     public void setHeadlineColor(@NonNull int color) {
         if (unifiedNativeAdView != null) {
-            TextView headline = (TextView) unifiedNativeAdView.findViewById(R.id.primary);
+            TextView headline = unifiedNativeAdView.findViewById(R.id.primary);
             if (headline == null) return;
 
             headline.setTextColor(color);
         }
-
     }
 
     public void setBodyTextColor(@NonNull int color) {
         if (unifiedNativeAdView != null) {
-            TextView tagline = (TextView) unifiedNativeAdView.findViewById(R.id.secondary);
+            TextView tagline = unifiedNativeAdView.findViewById(R.id.secondary);
             if (tagline == null) return;
             tagline.setTextColor(color);
         }
     }
 
-
     public void setAdvertiserTextColor(@NonNull int color) {
         if (unifiedNativeAdView != null) {
-            TextView advertiser = (TextView) unifiedNativeAdView.findViewById(R.id.tertiary);
+            TextView advertiser = unifiedNativeAdView.findViewById(R.id.tertiary);
             if (advertiser == null) return;
             advertiser.setTextColor(color);
         }
-
     }
-
 
     public void setRatingColor(int color) {
         if (unifiedNativeAdView != null) {
             if (ratingBar != null) {
-
-                RatingBar starRating = (RatingBar) findViewById(R.id.rating_bar);
+                RatingBar starRating = findViewById(R.id.rating_bar);
                 if (starRating == null) return;
                 LayerDrawable stars = (LayerDrawable) starRating.getProgressDrawable();
                 stars.setColorFilter(color, PorterDuff.Mode.SRC_ATOP);
-
             }
         }
     }
@@ -603,13 +559,11 @@ class ReactNativeView extends LinearLayout {
         }
     }
 
-
     public void setAdSize(String size) {
         adSize = size;
         createNativeAd(getContext());
         loadNativeAd(admobAdUnitId);
     }
-
 
     public void loadNativeAd(final String adUnitID) {
         admobAdUnitId = adUnitID;

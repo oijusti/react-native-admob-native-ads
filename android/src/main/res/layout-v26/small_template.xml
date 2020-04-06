@@ -4,12 +4,12 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/native_ad_view"
     android:layout_width="match_parent"
-    android:layout_height="wrap_content"
+    android:layout_height="match_parent"
     android:layout_centerInParent="true">
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
-        android:layout_height="@dimen/gnt_small_template_height"
+        android:layout_height="match_parent"
         android:layout_centerInParent="true">
 
         <LinearLayout
@@ -23,6 +23,7 @@
 
             android:orientation="vertical"
             app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintDimensionRatio="H,3:1"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent">
@@ -65,7 +66,7 @@
                             android:layout_width="21dp"
                             android:layout_height="match_parent"
                             android:layout_marginLeft="0dp"
-                            android:background="@color/gnt_ad_orange"
+                            android:background="@color/gnt_red"
                             android:gravity="center"
                             android:text="Ad"
                             android:textColor="@color/gnt_white"
@@ -95,7 +96,7 @@
                         android:id="@+id/content"
                         android:layout_width="@dimen/gnt_no_size"
                         android:layout_height="@dimen/gnt_no_size"
-                        android:layout_marginStart="@dimen/gnt_double_margin"
+                        android:layout_marginStart="@dimen/gnt_default_margin"
                         android:layout_marginTop="@dimen/gnt_no_margin"
                         android:layout_marginEnd="@dimen/gnt_no_margin"
                         android:layout_marginBottom="@dimen/gnt_no_margin"
@@ -105,13 +106,13 @@
                         app:layout_constraintStart_toEndOf="@id/icon"
                         app:layout_constraintTop_toTopOf="parent"
                         android:layout_marginRight="@dimen/gnt_no_margin"
-                        android:layout_marginLeft="@dimen/gnt_double_margin">
+                        android:layout_marginLeft="@dimen/gnt_default_margin">
 
                         <LinearLayout
                             android:id="@+id/headline"
                             android:layout_width="match_parent"
                             android:layout_height="3dp"
-                            android:layout_weight="0.3"
+                            android:layout_weight="0.25"
                             android:orientation="horizontal"
                             app:layout_constraintBottom_toTopOf="@id/body"
                             app:layout_constraintEnd_toEndOf="parent"
@@ -123,14 +124,13 @@
                                 android:layout_width="match_parent"
                                 android:layout_height="match_parent"
                                 android:layout_marginStart="@dimen/gnt_no_margin"
-                                android:layout_marginTop="@dimen/gnt_default_margin"
-                                android:layout_marginEnd="@dimen/gnt_default_margin"
+                                android:layout_marginTop="@dimen/gnt_no_margin"
+                                android:layout_marginEnd="@dimen/gnt_no_margin"
                                 android:layout_marginBottom="@dimen/gnt_no_margin"
                                 android:lines="1"
                                 android:maxLines="1"
                                 android:ellipsize="end"
-                                android:maxEms="25"
-                                android:textColor="@color/gnt_gray"
+                                android:maxEms="25"                                android:textColor="@color/gnt_gray"
                                 android:textSize="@dimen/gnt_text_size_large"
                                 android:textStyle="bold"
                                 android:gravity="start|bottom"
@@ -138,16 +138,14 @@
                                 app:layout_constraintBottom_toBottomOf="parent"
                                 app:layout_constraintEnd_toEndOf="parent"
                                 app:layout_constraintStart_toEndOf="parent"
-                                app:layout_constraintTop_toTopOf="parent"
-                                android:layout_marginLeft="@dimen/gnt_no_margin"
-                                android:layout_marginRight="@dimen/gnt_default_margin" />
+                                app:layout_constraintTop_toTopOf="parent" />
                         </LinearLayout>
 
                         <LinearLayout
                             android:id="@+id/gnt_body"
                             android:layout_width="match_parent"
                             android:layout_height="20dp"
-                            android:layout_weight="0.7"
+                            android:layout_weight="0.75"
                             android:orientation="horizontal"
                             app:layout_constraintBottom_toTopOf="parent"
                             app:layout_constraintEnd_toEndOf="parent"
@@ -164,7 +162,7 @@
                                 android:layout_marginTop="@dimen/gnt_default_margin"
                                 android:layout_marginEnd="@dimen/gnt_default_margin"
                                 android:layout_marginRight="@dimen/gnt_default_margin"
-                                android:layout_marginBottom="@dimen/gnt_double_margin"
+                                android:layout_marginBottom="20dp"
                                 android:layout_weight="1"
                                 android:background="@color/gnt_placeholder_color"
                                 android:gravity="start|top"
@@ -204,6 +202,11 @@
                                     android:padding="@dimen/gnt_default_margin"
                                     android:textColor="@color/gnt_white"
                                     android:textSize="12sp"
+                                    android:text="DOWNLOAD ME PLEASE"
+                                    android:autoSizeTextType="uniform"
+                                    android:autoSizeMinTextSize="12sp"
+                                    android:autoSizeMaxTextSize="100sp"
+                                    android:autoSizeStepGranularity="2sp"
                                     app:layout_constraintBottom_toBottomOf="parent"
                                     app:layout_constraintEnd_toEndOf="parent"
                                     app:layout_constraintStart_toStartOf="parent"
