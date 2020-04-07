@@ -10,7 +10,7 @@
         <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="GADTSmallTemplateView">
             <connections>
                 <outlet property="callToActionView" destination="9ag-e3-7oH" id="li3-np-obd"/>
-                <outlet property="mediaView" destination="6ux-FJ-pGo" id="pty-ge-Kme"/>
+                <outlet property="iconView" destination="SvJ-uS-VVf" id="DTK-Xe-Kg4"/>
                 <outlet property="primaryTextView" destination="DKj-id-Sm4" id="cxG-JK-HJA"/>
                 <outlet property="secondaryTextView" destination="DsV-hP-SlD" id="Pkl-bo-T9E"/>
             </connections>
@@ -28,6 +28,13 @@
                                 <constraint firstAttribute="width" constant="60" id="dJ4-ya-hRj"/>
                             </constraints>
                         </view>
+                        <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" horizontalCompressionResistancePriority="1" verticalCompressionResistancePriority="1" translatesAutoresizingMaskIntoConstraints="NO" id="SvJ-uS-VVf">
+                            <rect key="frame" x="20" y="20" width="60" height="60"/>
+                            <constraints>
+                                <constraint firstAttribute="width" constant="60" id="OyA-cf-Qxd"/>
+                                <constraint firstAttribute="height" constant="60" id="roc-NT-MBg"/>
+                            </constraints>
+                        </imageView>
                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" misplaced="YES" text="Ad" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="hl4-7y-gXg">
                             <rect key="frame" x="0.0" y="0.0" width="21" height="15"/>
                             <color key="backgroundColor" red="1" green="0.72549019607843135" blue="0.13725490196078433" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
@@ -42,8 +49,10 @@
                         </label>
                     </subviews>
                     <constraints>
+                        <constraint firstItem="SvJ-uS-VVf" firstAttribute="leading" secondItem="L39-RW-Fxr" secondAttribute="leading" constant="5" id="Lw3-lO-xCv"/>
                         <constraint firstItem="6ux-FJ-pGo" firstAttribute="leading" secondItem="L39-RW-Fxr" secondAttribute="leading" constant="5" id="PqV-VJ-Qfg"/>
                         <constraint firstAttribute="height" constant="85" id="Qic-sa-3dT"/>
+                        <constraint firstAttribute="bottom" secondItem="SvJ-uS-VVf" secondAttribute="bottom" constant="5" id="VJO-9o-QB0"/>
                         <constraint firstAttribute="bottom" secondItem="6ux-FJ-pGo" secondAttribute="bottom" constant="5" id="Yyb-nG-c75"/>
                         <constraint firstAttribute="width" constant="65" id="ZhG-da-4Rr"/>
                     </constraints>
