@@ -111,7 +111,9 @@ GADTTemplateView *nativeAdView;
     nativeAdView.rootView.backgroundColor = bgColor;
     nativeAdView.mediaView.backgroundColor = bgColor;
     nativeAdView.primaryTextView.superview.backgroundColor = bgColor;
-    
+    nativeAdView.secondaryTextView.backgroundColor = bgColor;
+    nativeAdView.iconView.backgroundColor = bgColor;
+
     nativeAdView.layer.borderColor = [self colorWithHexString:borderColor].CGColor;
     nativeAdView.layer.borderWidth = borderWidth.floatValue;
     nativeAdView.layer.cornerRadius = borderRadius.floatValue;
@@ -188,6 +190,13 @@ GADTTemplateView *nativeAdView;
     GADRequest *request = [GADRequest request];
     GADMobileAds.sharedInstance.requestConfiguration.testDeviceIdentifiers = _testDevices;
     [self.adLoader loadRequest:request];
+    
+    if([_adSize  isEqual: @"small"]) {
+        GADTSmallTemplateView *templateView = [[GADTSmallTemplateView alloc] init];
+        [self addSubview:templateView];
+        [templateView addHorizontalConstraintsToSuperviewWidth];
+        [templateView addVerticalCenterConstraintToSuperview];
+    }
 }
 
 - (void)adLoader:(GADAdLoader *)adLoader didFailToReceiveAdWithError:(GADRequestError *)error {
