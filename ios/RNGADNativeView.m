@@ -189,6 +189,13 @@ GADTTemplateView *nativeAdView;
     self.adLoader.delegate = self;
     GADRequest *request = [GADRequest request];
     GADMobileAds.sharedInstance.requestConfiguration.testDeviceIdentifiers = _testDevices;
+    
+    NSMutableDictionary *extras = [@{} mutableCopy];
+    extras[@"npa"] = @"1";
+    GADExtras *networkExtras = [[GADExtras alloc] init];
+    networkExtras.additionalParameters = extras;
+    [request registerAdNetworkExtras:networkExtras];
+    
     [self.adLoader loadRequest:request];
     
     if([_adSize  isEqual: @"small"]) {
