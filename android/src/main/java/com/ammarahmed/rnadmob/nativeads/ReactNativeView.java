@@ -5,6 +5,7 @@ import android.graphics.Color;
 import android.graphics.PorterDuff;
 import android.graphics.drawable.GradientDrawable;
 import android.graphics.drawable.LayerDrawable;
+import android.os.Bundle;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -22,6 +23,7 @@ import com.facebook.react.bridge.Arguments;
 import com.facebook.react.bridge.ReactContext;
 import com.facebook.react.bridge.WritableMap;
 import com.facebook.react.uimanager.events.RCTEventEmitter;
+import com.google.ads.mediation.admob.AdMobAdapter;
 import com.google.android.gms.ads.AdListener;
 import com.google.android.gms.ads.AdLoader;
 import com.google.android.gms.ads.AdRequest;
@@ -257,7 +259,12 @@ class ReactNativeView extends LinearLayout {
             }
         }).build();
 
-        adLoader.loadAd(new AdRequest.Builder().build());
+        AdRequest.Builder AdRequestBuilder = new AdRequest.Builder();
+        Bundle extras = new Bundle();
+        extras.putString("npa", "1");
+        AdRequestBuilder.addNetworkExtrasBundle(AdMobAdapter.class, extras);
+
+        adLoader.loadAd(AdRequestBuilder.build());
     }
 
 
