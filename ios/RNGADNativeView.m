@@ -219,10 +219,12 @@ GADTTemplateView *nativeAdView;
 {
     nativeAd.delegate = self;
     templateView.nativeAd = nativeAd;
-    
-    
     nativeAdView = templateView;
-    
+
+    nativeAdView.primaryTextView.superview.backgroundColor = [UIColor clearColor];
+    nativeAdView.secondaryTextView.backgroundColor = [UIColor clearColor];
+    nativeAdView.iconView.backgroundColor = [UIColor clearColor];
+
     [self addSubview:templateView];
     [templateView addHorizontalConstraintsToSuperviewWidth];
     [templateView addVerticalCenterConstraintToSuperview];
