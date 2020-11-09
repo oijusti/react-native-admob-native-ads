@@ -243,7 +243,9 @@ class ReactNativeView extends LinearLayout {
                 TextView tagline = unifiedNativeAdView.findViewById(R.id.secondary);
                 tagline.setBackgroundColor(Color.TRANSPARENT);
                 ImageView iconView = findViewById(R.id.icon);
-                iconView.setBackgroundColor(Color.TRANSPARENT);
+                if (iconView != null) {
+                    iconView.setBackgroundColor(Color.TRANSPARENT);
+                }
             }
 
             @Override
